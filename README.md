@@ -39,6 +39,7 @@ Write a program which:
   
  Input:
  
+  ```
   1
 
   3 4
@@ -48,9 +49,11 @@ Write a program which:
   0011
 
   0110
+  ```
 
 Output:
-
+```
   3 2 1 0
   2 1 0 0
   1 0 0 1
+  ```
