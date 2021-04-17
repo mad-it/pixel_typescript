@@ -7,8 +7,15 @@ Basic algorithm:
 - TIME COMPLEXITY: O(MN) [or just O(N^2)]
 - SPACE COMPLEXITY: O(MN) [or just O(N^2)]
 
+## Structure
 
+The project uses a minimalistic setup that is sufficient for running an in-memory small application. 
+# Assumptions
+The project setup or input/output is not considered to be the most important part of this evaluation.
+
+This excercise is more algorithmic and focus on the time and space complexity is given.
 ## Setup
+
 ``yarn install``
 ## Running tests
 ``yarn test``
