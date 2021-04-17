@@ -45,7 +45,7 @@ export function find_pixel_distances(bitmap: number[][], rows: number, columns: 
       }
     }
   }
-  // The (i,j)th position in left_right_distance array stores the distance to the nearest white pixel
+  // The (i,j)th position in right_left_distance array stores the distance to the nearest white pixel
   // in bitmap from the (i,j) position in bitmap calculated from the right and the below directions.
   for (let row = rows - 1; row >= 0; row--) {
     for (let j = columns - 1; j >= 0; j--) {
@@ -68,6 +68,9 @@ export function find_pixel_distances(bitmap: number[][], rows: number, columns: 
       }
     }
   }
+
+  // The nearest white pixel to a pixel at (i,j) is the minimum of the calculated distances
+  // from left, right, top and below directions.
   for (let i = 0; i < rows; i++) {
     for (let j = 0; j < columns; j++) {
       left_right_distance[i][j] = Math.min(
