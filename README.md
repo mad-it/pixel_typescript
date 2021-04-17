@@ -1,4 +1,9 @@
 # Find nearest White
+The program uses dynamic programming to store subproblem results for the distance to a white pixel from a certain pixel.
+- let d(i,j) = distance to nearest white pixel from pixel at i,j, where 0<=i<rows and 0<=j<columns
+- d(i,j) = min(d(i-1,j), d(i,j-1), d(i+1,j), d(i,j+1))
+- TIME COMPLEXITY: O(MN) [or just O(N^2)]
+- SPACE COMPLEXITY: O(MN) [or just O(N^2)]
 ## Setup
 ``yarn install``
 ## Running tests
@@ -31,17 +36,17 @@ Write a program which:
  Input:
  
   1
-  
+
   3 4
-  
+
   0001
-  
+
   0011
-  
+
   0110
 
 Output:
 
-3 2 1 0
-2 1 0 0
-1 0 0 1
+  3 2 1 0
+  2 1 0 0
+  1 0 0 1
