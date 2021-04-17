@@ -23,9 +23,9 @@ export function find_pixel_distances(
   for (let i = 0; i < rows; i++) {
     left_top_distance[i] = new Array(columns);
   }
-  const right_left_distance: number[][] = new Array(rows);
+  const right_below_distance: number[][] = new Array(rows);
   for (let i = 0; i < rows; i++) {
-    right_left_distance[i] = new Array(columns);
+    right_below_distance[i] = new Array(columns);
   }
 
   // The (i,j)th position in left_top_distance array stores the distance to the nearest white pixel
@@ -46,13 +46,13 @@ export function find_pixel_distances(
   // in bitmap from the (i,j) position in bitmap calculated from the right and the below directions.
   for (let row = rows - 1; row >= 0; row--) {
     for (let j = columns - 1; j >= 0; j--) {
-      right_left_distance[row][j] = solve_subproblem_right_below(
+      right_below_distance[row][j] = solve_subproblem_right_below(
         bitmap,
         row,
         j,
         rows,
         columns,
-        right_left_distance
+        right_below_distance
       );
     }
   }
@@ -62,21 +62,30 @@ export function find_pixel_distances(
   for (let i = 0; i < rows; i++) {
     for (let j = 0; j < columns; j++) {
       left_top_distance[i][j] = Math.min(
-        right_left_distance[i][j],
+        right_below_distance[i][j],
         left_top_distance[i][j]
       );
     }
   }
   return left_top_distance;
 }
-
+/**
+ * This solves the subproblem for i,j from right and below directions
+ * @param bitmap the pixel bitmap. 1 represents a white pixel
+ * @param row 
+ * @param j 
+ * @param rows 
+ * @param columns 
+ * @param right_below_distance 
+ * @returns 
+ */
 function solve_subproblem_right_below(
   bitmap: number[][],
   row: number,
   j: number,
   rows: number,
   columns: number,
-  right_left_distance: number[][]
+  right_below_distance: number[][]
 ):number {
   if (bitmap[row][j] == 1) {
     return 0;
@@ -86,14 +95,23 @@ function solve_subproblem_right_below(
     // a white pixel from right/below directions
     return rows + columns + 1;
   } else if (row == rows - 1) {
-    return right_left_distance[row][j + 1] + 1;
+    return right_below_distance[row][j + 1] + 1;
   } else if (j == columns - 1) {
-    return right_left_distance[row + 1][j] + 1;
+    return right_below_distance[row + 1][j] + 1;
   } else {
-    return Math.min(right_left_distance[row + 1][j], right_left_distance[row][j + 1]) + 1;
+    return Math.min(right_below_distance[row + 1][j], right_below_distance[row][j + 1]) + 1;
   }
 }
-
+/**
+ * This solves the subproblem for i,j from top and left directions
+ * @param bitmap 
+ * @param row 
+ * @param col 
+ * @param left_top_distance 
+ * @param rows 
+ * @param columns 
+ * @returns 
+ */
 function solve_subproblem_left_top(
   bitmap: number[][],
   row: number,
