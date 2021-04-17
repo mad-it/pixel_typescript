@@ -1,3 +1,13 @@
+/**
+ * The program uses dynamic programming to store subproblem results. 
+ * TIME COMPLEXITY: O(MN) [or just O(N^2)]
+ * SPACE COMPLEXITY: O(MN) [or just O(N^2)]
+ * @param bitmap the pixel bitmap. 1 represents a white pixel
+ * @param rows 
+ * @param columns 
+ * @returns returns a 2D map indicating the mininmum distance to the closest white pixel from every position in 
+ * the input bitmap
+ */
 export function find_pixel_distances(bitmap: number[][], rows: number, columns: number) {
   const left_right_distance: number[][] = new Array(rows);
   for (let i = 0; i < rows; i++) {
