@@ -1,4 +1,4 @@
-import * as Finder from "./finder";
+import * as Finder from "./algorithms/finder";
 /**
  * This is the entry point function for the command line startup 
  * Accepts input from STDIN and executes out find_pixel_distances for every test case 
