@@ -1,9 +1,12 @@
 /**
  * The program uses dynamic programming to store subproblem results for the distance to 
  * a white pixel from a certain pixel.
-
+ * let d(i,j) = distance to nearest white pixel from pixel at i,j, where 0<=i<rows and 0<=j<columns
+ * i,j = min(d(i-1,j), d(i,j-1), d(i+1,j), d(i,j+1))
+ * 
  * TIME COMPLEXITY: O(MN) [or just O(N^2)]
  * SPACE COMPLEXITY: O(MN) [or just O(N^2)]
+ * 
  * @param bitmap the pixel bitmap. 1 represents a white pixel
  * @param rows 
  * @param columns 
@@ -11,6 +14,7 @@
  * the input bitmap
  */
 export function find_pixel_distances(bitmap: number[][], rows: number, columns: number) {
+    //Let's create dynamic programming storages to store subproblem results
   const left_right_distance: number[][] = new Array(rows);
   for (let i = 0; i < rows; i++) {
     left_right_distance[i] = new Array(columns);
@@ -26,7 +30,7 @@ export function find_pixel_distances(bitmap: number[][], rows: number, columns: 
     for (let col = 0; col < columns; col++) {
       if (bitmap[row][col] != 1) {
         if (row == 0 && col == 0) {
-            // 1 more than the longest distance possible. This marks this node unreachable from 
+            // More than the longest distance possible. This marks this node unreachable from 
             // a white pixel from left/top directions
           left_right_distance[row][col] = rows + columns + 1; 
         } else if (row == 0) {
@@ -51,6 +55,8 @@ export function find_pixel_distances(bitmap: number[][], rows: number, columns: 
     for (let j = columns - 1; j >= 0; j--) {
       if (bitmap[row][j] != 1) {
         if (row == rows - 1 && j == columns - 1) {
+             // More than the longest distance possible. This marks this node unreachable from 
+            // a white pixel from right/below directions
           right_left_distance[row][j] = rows + columns + 1;
         } else if (row == rows - 1) {
           right_left_distance[row][j] = right_left_distance[row][j + 1] + 1;
