@@ -1,5 +1,7 @@
 /**
- * The program uses dynamic programming to store subproblem results. 
+ * The program uses dynamic programming to store subproblem results for the distance to 
+ * a white pixel from a certain pixel.
+
  * TIME COMPLEXITY: O(MN) [or just O(N^2)]
  * SPACE COMPLEXITY: O(MN) [or just O(N^2)]
  * @param bitmap the pixel bitmap. 1 represents a white pixel
