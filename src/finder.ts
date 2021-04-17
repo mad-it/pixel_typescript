@@ -20,11 +20,15 @@ export function find_pixel_distances(bitmap: number[][], rows: number, columns: 
     right_left_distance[i] = new Array(columns);
   }
 
+  // The (i,j)th position in left_right_distance array stores the distance to the nearest white pixel
+  // in bitmap from the (i,j) position in bitmap calculated from the left and the top directions.
   for (let row = 0; row < rows; row++) {
     for (let col = 0; col < columns; col++) {
       if (bitmap[row][col] != 1) {
         if (row == 0 && col == 0) {
-          left_right_distance[row][col] = rows + columns + 1; // 1 more than the longest distance possible
+            // 1 more than the longest distance possible. This marks this node unreachable from 
+            // a white pixel from left/top directions
+          left_right_distance[row][col] = rows + columns + 1; 
         } else if (row == 0) {
           left_right_distance[row][col] = left_right_distance[row][col - 1] + 1;
         } else if (col == 0) {
@@ -41,7 +45,8 @@ export function find_pixel_distances(bitmap: number[][], rows: number, columns: 
       }
     }
   }
-
+  // The (i,j)th position in left_right_distance array stores the distance to the nearest white pixel
+  // in bitmap from the (i,j) position in bitmap calculated from the right and the below directions.
   for (let row = rows - 1; row >= 0; row--) {
     for (let j = columns - 1; j >= 0; j--) {
       if (bitmap[row][j] != 1) {

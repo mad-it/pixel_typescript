@@ -5,6 +5,8 @@
 ``yarn test``
 # Running the command-line
 ``yarn start``
+The project runs a stdin program and executes when the input is terminated. The instructions are displayed when you run it.
+
 # Task
 There is given a rectangular bitmap of size n*m. Each pixel of the bitmap is either white or
 black, but at least one is white. The pixel in i-th line and j-th column is called the pixel (i,j). The
@@ -42,4 +44,3 @@ Output:
 3 2 1 0
 2 1 0 0
 1 0 0 1
-  
