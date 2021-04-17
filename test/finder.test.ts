@@ -1,4 +1,4 @@
-import * as Algo from "../src/finder";
+import * as Algo from "../src/algorithms/finder";
 
 test("Test happy cases", () => {
   const arr = [
