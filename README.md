@@ -1,5 +1,10 @@
 # pixel_typescript
-
+# Setup
+``yarn install``
+# Running tests
+``yarn test``
+# Running the command-line
+``yarn start``
 # Task
 There is given a rectangular bitmap of size n*m. Each pixel of the bitmap is either white or
 black, but at least one is white. The pixel in i-th line and j-th column is called the pixel (i,j). The
