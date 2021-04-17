@@ -2,7 +2,7 @@
  * The program uses dynamic programming to store subproblem results for the distance to
  * a white pixel from a certain pixel.
  * let d(i,j) = distance to nearest white pixel from pixel at i,j, where 0<=i<rows and 0<=j<columns
- * i,j = min(d(i-1,j), d(i,j-1), d(i+1,j), d(i,j+1))
+ * d(i,j) = min(d(i-1,j), d(i,j-1), d(i+1,j), d(i,j+1))
  *
  * TIME COMPLEXITY: O(MN) [or just O(N^2)]
  * SPACE COMPLEXITY: O(MN) [or just O(N^2)]
