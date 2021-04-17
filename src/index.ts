@@ -24,22 +24,26 @@ export function main() {
   
   let lines: string[] = input.split("\n");
   lines = lines.map((line)=>line.trim())
+  //Read number of test cases
   let test_cases = parseInt(lines[0]);
   let t = 0;
-  let i = 1;
+  let current_line_number = 1;
   while (t < test_cases) {
-    let size = lines[i].split(" ");
-    i++;
-    let m: number = parseInt(size[0]);
-    let n: number = parseInt(size[1]);
-    let input: number[][] = new Array(m);
+    // Read the dimensions of the 2d array input
+    let dimnesions = lines[current_line_number].split(" ");
+    current_line_number++;
+    let rows: number = parseInt(dimnesions[0]);
+    let cols: number = parseInt(dimnesions[1]);
+    let input: number[][] = new Array(rows);
     let row = 0;
-    while (row < m) {
-      input[row] = lines[i].split("").map((s) => parseInt(s));
-      i++;
+    while (row < rows) {
+      // Read a line for the row
+      input[row] = lines[current_line_number].split("").map((s) => parseInt(s));
+      current_line_number++;
       row++;
     }
-    console.log(`Test case ${t}:`, Finder.find_pixel_distances(input, m, n));
+    // Call the Finder function to display the results
+    console.log(`Test case ${t} result:`, Finder.find_pixel_distances(input, rows, cols));
     t++;
   }
 }
