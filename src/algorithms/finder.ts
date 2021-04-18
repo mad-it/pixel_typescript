@@ -45,11 +45,11 @@ export const findPixelDistances = (
   // The (i,j)th position in right_left_distance array stores the distance to the nearest white pixel
   // in bitmap from the (i,j) position in bitmap calculated from the right and the below directions.
   for (let row = rows - 1; row >= 0; row--) {
-    for (let j = columns - 1; j >= 0; j--) {
-      rightBelowDistance[row][j] = solveSubProblemRightBelow(
+    for (let col = columns - 1; col >= 0; col--) {
+      rightBelowDistance[row][col] = solveSubProblemRightBelow(
         bitmap,
         row,
-        j,
+        col,
         rows,
         columns,
         rightBelowDistance
@@ -73,7 +73,7 @@ export const findPixelDistances = (
  * This solves the subproblem for i,j from right and below directions
  * @param bitmap the pixel bitmap. 1 represents a white pixel
  * @param row
- * @param j
+ * @param col
  * @param rows
  * @param columns
  * @param rightBelowDistance
@@ -82,26 +82,26 @@ export const findPixelDistances = (
 const solveSubProblemRightBelow = (
   bitmap: number[][],
   row: number,
-  j: number,
+  col: number,
   rows: number,
   columns: number,
   rightBelowDistance: number[][]
 ): number => {
-  if (bitmap[row][j] === 1) {
+  if (bitmap[row][col] === 1) {
     return 0;
   }
 
-  if (row === rows - 1 && j === columns - 1) {
+  if (row === rows - 1 && col === columns - 1) {
     // More than the longest distance possible. This marks this node unreachable from
     // a white pixel from right/below directions
     return rows + columns + 1;
   } else if (row === rows - 1) {
-    return rightBelowDistance[row][j + 1] + 1;
-  } else if (j === columns - 1) {
-    return rightBelowDistance[row + 1][j] + 1;
+    return rightBelowDistance[row][col + 1] + 1;
+  } else if (col === columns - 1) {
+    return rightBelowDistance[row + 1][col] + 1;
   }
   return (
-    Math.min(rightBelowDistance[row + 1][j], rightBelowDistance[row][j + 1]) + 1
+    Math.min(rightBelowDistance[row + 1][col], rightBelowDistance[row][col + 1]) + 1
   );
 }
 /**
