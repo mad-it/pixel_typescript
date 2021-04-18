@@ -14,6 +14,10 @@ The project uses a minimalistic setup that is sufficient for running an in-memor
 The project setup or input/output is not considered to be the most important part of this evaluation.
 
 This excercise is more algorithmic and focus on the time and space complexity is given.
+
+For the command-line application, minimalistic validations are done.
+
+In the improvements we can add validations for commandline app and simulate stdin for testing. But this is out of the scope of the project.
 ## Setup
 
 ``yarn install``

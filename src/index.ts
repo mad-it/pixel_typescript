@@ -1,7 +1,9 @@
 import * as Finder from "./algorithms/finder";
 /**
- * This is the entry point function for the command line startup 
- * Accepts input from STDIN and executes out find_pixel_distances for every test case 
+ * This is the entry point function for the command line startup
+ * Accepts input from STDIN and executes out find_pixel_distances for every test case
+ *
+ * Assumption: Minimalistic validations are done for stdin.
  */
 
 export function main() {
@@ -21,30 +23,46 @@ export function main() {
   console.log("Enter your input:");
   console.log("Please press CMD+D (CTRL+D for windows) after input ");
   const input: string = fs.readFileSync("/dev/stdin").toString();
-  
+  try {
   let lines: string[] = input.split("\n");
-  lines = lines.map((line)=>line.trim())
+  lines = lines.map((line) => line.trim());
   //Read number of test cases
-  let test_cases = parseInt(lines[0]);
+  const test_cases = parseInt(lines[0]);
   let t = 0;
-  let current_line_number = 1;
-  while (t < test_cases) {
-    // Read the dimensions of the 2d array input
-    let dimnesions = lines[current_line_number].split(" ");
-    current_line_number++;
-    let rows: number = parseInt(dimnesions[0]);
-    let cols: number = parseInt(dimnesions[1]);
-    let input: number[][] = new Array(rows);
-    let row = 0;
-    while (row < rows) {
-      // Read a line for the row
-      input[row] = lines[current_line_number].split("").map((s) => parseInt(s));
-      current_line_number++;
-      row++;
+  let current_index = 1;
+ 
+    while (t < test_cases) {
+      try {
+        // Read the dimensions of the 2d array input
+        let dimnesions = lines[current_index].split(" ");
+        current_index++;
+        const rows: number = parseInt(dimnesions[0]);
+        const cols: number = parseInt(dimnesions[1]);
+        const input: number[][] = new Array(rows);
+        let row = 0;
+        while (row < rows) {
+          // Read a line for the row
+          input[row] = lines[current_index].split("").map((s) => parseInt(s));
+          if(input[row].length < cols){
+            console.error(`Test case ${t} is invalid. Number of elements in row ${row} should be minimum ${cols}`)
+            return;
+          }
+          current_index++;
+          row++;
+        }
+        // Call the Finder function to display the results
+        console.log(
+          `Test case ${t} result:`,
+          Finder.find_pixel_distances(input, rows, cols)
+        );
+      } catch (e) {
+        console.error(`Test case ${t} is not in an expected format`, e);
+      }
+
+      t++;
     }
-    // Call the Finder function to display the results
-    console.log(`Test case ${t} result:`, Finder.find_pixel_distances(input, rows, cols));
-    t++;
+  } catch (e) {
+    console.log("Invalid input. Check the example input for reference");
   }
 }
 main();

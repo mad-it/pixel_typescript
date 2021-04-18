@@ -13,11 +13,11 @@
  * @returns returns a 2D map indicating the mininmum distance to the closest white pixel from every position in
  * the input bitmap
  */
-export function find_pixel_distances(
+export const find_pixel_distances = (
   bitmap: number[][],
   rows: number,
   columns: number
-) {
+):number[][] => {
   //Let's create dynamic programming storages to store subproblem results
   const left_top_distance: number[][] = new Array(rows);
   for (let i = 0; i < rows; i++) {
@@ -72,71 +72,71 @@ export function find_pixel_distances(
 /**
  * This solves the subproblem for i,j from right and below directions
  * @param bitmap the pixel bitmap. 1 represents a white pixel
- * @param row 
- * @param j 
- * @param rows 
- * @param columns 
- * @param right_below_distance 
- * @returns 
+ * @param row
+ * @param j
+ * @param rows
+ * @param columns
+ * @param right_below_distance
+ * @returns
  */
-function solve_subproblem_right_below(
+const solve_subproblem_right_below = (
   bitmap: number[][],
   row: number,
   j: number,
   rows: number,
   columns: number,
   right_below_distance: number[][]
-):number {
-  if (bitmap[row][j] == 1) {
+): number => {
+  if (bitmap[row][j] === 1) {
     return 0;
   }
-  if (row == rows - 1 && j == columns - 1) {
+
+  if (row === rows - 1 && j === columns - 1) {
     // More than the longest distance possible. This marks this node unreachable from
     // a white pixel from right/below directions
     return rows + columns + 1;
-  } else if (row == rows - 1) {
+  } else if (row === rows - 1) {
     return right_below_distance[row][j + 1] + 1;
-  } else if (j == columns - 1) {
+  } else if (j === columns - 1) {
     return right_below_distance[row + 1][j] + 1;
-  } else {
-    return Math.min(right_below_distance[row + 1][j], right_below_distance[row][j + 1]) + 1;
   }
+  return (
+    Math.min(right_below_distance[row + 1][j], right_below_distance[row][j + 1]) + 1
+  );
 }
 /**
  * This solves the subproblem for i,j from top and left directions
- * @param bitmap 
- * @param row 
- * @param col 
- * @param left_top_distance 
- * @param rows 
- * @param columns 
- * @returns 
+ * @param bitmap
+ * @param row
+ * @param col
+ * @param left_top_distance
+ * @param rows
+ * @param columns
+ * @returns
  */
-function solve_subproblem_left_top(
+const solve_subproblem_left_top = (
   bitmap: number[][],
   row: number,
   col: number,
   left_top_distance: number[][],
   rows: number,
   columns: number
-):number {
-  if (bitmap[row][col] == 1) {
+): number => {
+  if (bitmap[row][col] === 1) {
     return 0;
   }
-  if (row == 0 && col == 0) {
+
+  if (row === 0 && col === 0) {
     // More than the longest distance possible. This marks this node unreachable from
     // a white pixel from left/top directions
     return rows + columns + 1;
-  } else if (row == 0) {
+  } else if (row === 0) {
     return left_top_distance[row][col - 1] + 1;
-  } else if (col == 0) {
+  } else if (col === 0) {
     return left_top_distance[row - 1][col] + 1;
-  } else {
-    return (
-      Math.min(
-        left_top_distance[row - 1][col],
-        left_top_distance[row][col - 1]
-      ) + 1
-    );
   }
+
+  return (
+    Math.min(left_top_distance[row - 1][col], left_top_distance[row][col - 1]) + 1
+  );
 }
