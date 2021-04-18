@@ -10,6 +10,7 @@ Basic algorithm:
 ## Structure
 
 The project uses a minimalistic setup that is sufficient for running an in-memory small application. 
+Jest is used for unit testing.
 # Assumptions
 The project setup or input/output is not considered to be the most important part of this evaluation.
 
