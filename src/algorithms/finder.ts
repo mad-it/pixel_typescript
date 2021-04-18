@@ -13,30 +13,30 @@
  * @returns returns a 2D map indicating the mininmum distance to the closest white pixel from every position in
  * the input bitmap
  */
-export const find_pixel_distances = (
+export const findPixelDistances = (
   bitmap: number[][],
   rows: number,
   columns: number
 ):number[][] => {
   //Let's create dynamic programming storages to store subproblem results
-  const left_top_distance: number[][] = new Array(rows);
+  const leftTopDistance: number[][] = new Array(rows);
   for (let i = 0; i < rows; i++) {
-    left_top_distance[i] = new Array(columns);
+    leftTopDistance[i] = new Array(columns);
   }
-  const right_below_distance: number[][] = new Array(rows);
+  const rightBelowDistance: number[][] = new Array(rows);
   for (let i = 0; i < rows; i++) {
-    right_below_distance[i] = new Array(columns);
+    rightBelowDistance[i] = new Array(columns);
   }
 
   // The (i,j)th position in left_top_distance array stores the distance to the nearest white pixel
   // in bitmap from the (i,j) position in bitmap calculated from the left and the top directions.
   for (let row = 0; row < rows; row++) {
     for (let col = 0; col < columns; col++) {
-      left_top_distance[row][col] = solve_subproblem_left_top(
+      leftTopDistance[row][col] = solveSubproblemLeftTop(
         bitmap,
         row,
         col,
-        left_top_distance,
+        leftTopDistance,
         rows,
         columns
       );
@@ -46,13 +46,13 @@ export const find_pixel_distances = (
   // in bitmap from the (i,j) position in bitmap calculated from the right and the below directions.
   for (let row = rows - 1; row >= 0; row--) {
     for (let j = columns - 1; j >= 0; j--) {
-      right_below_distance[row][j] = solve_subproblem_right_below(
+      rightBelowDistance[row][j] = solveSubProblemRightBelow(
         bitmap,
         row,
         j,
         rows,
         columns,
-        right_below_distance
+        rightBelowDistance
       );
     }
   }
@@ -61,13 +61,13 @@ export const find_pixel_distances = (
   // from left, right, top and below directions.
   for (let i = 0; i < rows; i++) {
     for (let j = 0; j < columns; j++) {
-      left_top_distance[i][j] = Math.min(
-        right_below_distance[i][j],
-        left_top_distance[i][j]
+      leftTopDistance[i][j] = Math.min(
+        rightBelowDistance[i][j],
+        leftTopDistance[i][j]
       );
     }
   }
-  return left_top_distance;
+  return leftTopDistance;
 }
 /**
  * This solves the subproblem for i,j from right and below directions
@@ -76,16 +76,16 @@ export const find_pixel_distances = (
  * @param j
  * @param rows
  * @param columns
- * @param right_below_distance
+ * @param rightBelowDistance
  * @returns
  */
-const solve_subproblem_right_below = (
+const solveSubProblemRightBelow = (
   bitmap: number[][],
   row: number,
   j: number,
   rows: number,
   columns: number,
-  right_below_distance: number[][]
+  rightBelowDistance: number[][]
 ): number => {
   if (bitmap[row][j] === 1) {
     return 0;
@@ -96,12 +96,12 @@ const solve_subproblem_right_below = (
     // a white pixel from right/below directions
     return rows + columns + 1;
   } else if (row === rows - 1) {
-    return right_below_distance[row][j + 1] + 1;
+    return rightBelowDistance[row][j + 1] + 1;
   } else if (j === columns - 1) {
-    return right_below_distance[row + 1][j] + 1;
+    return rightBelowDistance[row + 1][j] + 1;
   }
   return (
-    Math.min(right_below_distance[row + 1][j], right_below_distance[row][j + 1]) + 1
+    Math.min(rightBelowDistance[row + 1][j], rightBelowDistance[row][j + 1]) + 1
   );
 }
 /**
@@ -109,16 +109,16 @@ const solve_subproblem_right_below = (
  * @param bitmap
  * @param row
  * @param col
- * @param left_top_distance
+ * @param leftTopDistance
  * @param rows
  * @param columns
  * @returns
  */
-const solve_subproblem_left_top = (
+const solveSubproblemLeftTop = (
   bitmap: number[][],
   row: number,
   col: number,
-  left_top_distance: number[][],
+  leftTopDistance: number[][],
   rows: number,
   columns: number
 ): number => {
@@ -131,12 +131,12 @@ const solve_subproblem_left_top = (
     // a white pixel from left/top directions
     return rows + columns + 1;
   } else if (row === 0) {
-    return left_top_distance[row][col - 1] + 1;
+    return leftTopDistance[row][col - 1] + 1;
   } else if (col === 0) {
-    return left_top_distance[row - 1][col] + 1;
+    return leftTopDistance[row - 1][col] + 1;
   }
 
   return (
-    Math.min(left_top_distance[row - 1][col], left_top_distance[row][col - 1]) + 1
+    Math.min(leftTopDistance[row - 1][col], leftTopDistance[row][col - 1]) + 1
   );
 }

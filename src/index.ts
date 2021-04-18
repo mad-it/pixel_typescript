@@ -53,7 +53,7 @@ export function main() {
         // Call the Finder function to display the results
         console.log(
           `Test case ${t} result:`,
-          Finder.find_pixel_distances(input, rows, cols)
+          Finder.findPixelDistances(input, rows, cols)
         );
       } catch (e) {
         console.error(`Test case ${t} is not in an expected format`, e);
