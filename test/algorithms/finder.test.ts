@@ -1,6 +1,7 @@
-import * as Finder from "../src/algorithms/finder";
+import * as Finder from "../../src/algorithms/finder";
 
 test("Test happy cases", () => {
+  
   const arr = [
     [0, 0, 0, 1],
     [0, 0, 1, 1],
