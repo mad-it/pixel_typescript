@@ -28,7 +28,7 @@ export const findPixelDistances = (
     rightBelowDistance[i] = new Array(columns);
   }
 
-  // The (i,j)th position in left_top_distance array stores the distance to the nearest white pixel
+  // The (i,j)th position in leftTopDistance array stores the distance to the nearest white pixel
   // in bitmap from the (i,j) position in bitmap calculated from the left and the top directions.
   for (let row = 0; row < rows; row++) {
     for (let col = 0; col < columns; col++) {
@@ -42,7 +42,7 @@ export const findPixelDistances = (
       );
     }
   }
-  // The (i,j)th position in right_left_distance array stores the distance to the nearest white pixel
+  // The (i,j)th position in rightBelowDistance array stores the distance to the nearest white pixel
   // in bitmap from the (i,j) position in bitmap calculated from the right and the below directions.
   for (let row = rows - 1; row >= 0; row--) {
     for (let col = columns - 1; col >= 0; col--) {

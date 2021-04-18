@@ -1,7 +1,7 @@
 import * as Finder from "./algorithms/finder";
 /**
  * This is the entry point function for the command line startup
- * Accepts input from STDIN and executes out find_pixel_distances for every test case
+ * Accepts input from STDIN and executes out findPxelDistances for every test case
  *
  * Assumption: Minimalistic validations are done for stdin.
  */
@@ -27,27 +27,27 @@ export function main() {
   let lines: string[] = input.split("\n");
   lines = lines.map((line) => line.trim());
   //Read number of test cases
-  const test_cases = parseInt(lines[0]);
+  const testCases = parseInt(lines[0]);
   let t = 0;
-  let current_index = 1;
+  let currentIndex = 1;
  
-    while (t < test_cases) {
+    while (t < testCases) {
       try {
         // Read the dimensions of the 2d array input
-        let dimnesions = lines[current_index].split(" ");
-        current_index++;
+        let dimnesions = lines[currentIndex].split(" ");
+        currentIndex++;
         const rows: number = parseInt(dimnesions[0]);
         const cols: number = parseInt(dimnesions[1]);
         const input: number[][] = new Array(rows);
         let row = 0;
         while (row < rows) {
           // Read a line for the row
-          input[row] = lines[current_index].split("").map((s) => parseInt(s));
+          input[row] = lines[currentIndex].split("").map((s) => parseInt(s));
           if(input[row].length < cols){
             console.error(`Test case ${t} is invalid. Number of elements in row ${row} should be minimum ${cols}`)
             return;
           }
-          current_index++;
+          currentIndex++;
           row++;
         }
         // Call the Finder function to display the results
